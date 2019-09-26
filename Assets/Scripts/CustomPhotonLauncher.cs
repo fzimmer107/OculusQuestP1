@@ -7,6 +7,7 @@ using ExitGames.Client.Photon;
 
 public class CustomPhotonLauncher : MonoBehaviourPunCallbacks, IOnEventCallback
 {
+    public Transform SpawnPoint;
     private string gameVersion = "1";
     public const byte InstantiateVrAvatarEventCode = 1;
 
@@ -60,7 +61,7 @@ public class CustomPhotonLauncher : MonoBehaviourPunCallbacks, IOnEventCallback
     {
         Debug.Log("OnJoinedRoom() called by PUN. Now this client is in a room.");
 
-        GameObject localAvatar = Instantiate(Resources.Load("OVRPlayerControllerLocal"), new Vector3(0,0,0), Quaternion.identity) as GameObject;
+        GameObject localAvatar = Instantiate(Resources.Load("VREmpty"), new Vector3(SpawnPoint.position.x,SpawnPoint.position.y, SpawnPoint.position.z), Quaternion.identity) as GameObject;
         PhotonNetwork.Instantiate("GrabbableCube", new Vector3(0,0,3), Quaternion.identity);
 
         PhotonView photonView = localAvatar.GetComponent<PhotonView>();
@@ -94,7 +95,7 @@ public class CustomPhotonLauncher : MonoBehaviourPunCallbacks, IOnEventCallback
     {
         if(photonEvent.Code == InstantiateVrAvatarEventCode)
         {
-           GameObject remotAvatar = Instantiate(Resources.Load("VRAvatar"),new Vector3(1f,0f,1f),Quaternion.identity) as GameObject;
+           GameObject remotAvatar = Instantiate(Resources.Load("HoloLensAvatar2"),new Vector3(0f,0f,0f),Quaternion.identity) as GameObject;
            PhotonView photonView = remotAvatar.GetComponent<PhotonView>();
            photonView.ViewID = (int)photonEvent.CustomData;
         }
