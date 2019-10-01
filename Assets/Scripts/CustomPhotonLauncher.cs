@@ -5,6 +5,8 @@ using Photon.Pun;
 using Photon.Realtime;
 using ExitGames.Client.Photon;
 
+
+
 public class CustomPhotonLauncher : MonoBehaviourPunCallbacks, IOnEventCallback
 {
     public Transform SpawnPoint;
@@ -57,10 +59,17 @@ public class CustomPhotonLauncher : MonoBehaviourPunCallbacks, IOnEventCallback
         PhotonNetwork.CreateRoom(null, new RoomOptions());
     }
 
+
+
     public override void OnJoinedRoom()
     {
-        Debug.Log("OnJoinedRoom() called by PUN. Now this client is in a room.");
 
+        /// <summary>
+        /// Content of this class was created with help of a tutorial from: https://doc.photonengine.com/en-us/pun/v2/demos-and-tutorials/oculusavatarsdk
+        /// </summary>
+
+        Debug.Log("OnJoinedRoom() called by PUN. Now this client is in a room.");
+        //Instantiate own Avatar
         GameObject localAvatar = Instantiate(Resources.Load("VREmpty"), new Vector3(SpawnPoint.position.x,SpawnPoint.position.y, SpawnPoint.position.z), Quaternion.identity) as GameObject;
         PhotonNetwork.Instantiate("GrabbableCube", new Vector3(0,0,3), Quaternion.identity);
 
@@ -68,6 +77,7 @@ public class CustomPhotonLauncher : MonoBehaviourPunCallbacks, IOnEventCallback
 
         if (PhotonNetwork.AllocateViewID(photonView))
         {
+            //if we allocated an ID for the view, send an event, so an avatar gets intantiated on other clients
             RaiseEventOptions raiseEventOptions = new RaiseEventOptions
             {
                 CachingOption = EventCaching.AddToRoomCache,
@@ -84,6 +94,7 @@ public class CustomPhotonLauncher : MonoBehaviourPunCallbacks, IOnEventCallback
 
         else
         {
+            //we failed to allocate a view, destroy local avatar
             Debug.Log("Failed to allocate a ViewId");
 
             Destroy(localAvatar);
@@ -95,6 +106,7 @@ public class CustomPhotonLauncher : MonoBehaviourPunCallbacks, IOnEventCallback
     {
         if(photonEvent.Code == InstantiateVrAvatarEventCode)
         {
+            //this client only instantiates holoLens user avatars
            GameObject remotAvatar = Instantiate(Resources.Load("HoloLensAvatar2"),new Vector3(0f,0f,0f),Quaternion.identity) as GameObject;
            PhotonView photonView = remotAvatar.GetComponent<PhotonView>();
            photonView.ViewID = (int)photonEvent.CustomData;

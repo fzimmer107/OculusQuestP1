@@ -192,6 +192,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpatialMapping (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: a24f171499425bc48a4ea4df87a83302, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: a24f171499425bc48a4ea4df87a83302, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0

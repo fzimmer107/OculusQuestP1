@@ -4,6 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 
+
+/// <summary>
+/// This class was created with use of a tutorial, which can be found here: https://doc.photonengine.com/en-us/pun/v2/demos-and-tutorials/oculusavatarsdk
+/// </summary>
 public class PhotonAvatarView : MonoBehaviour, IPunObservable
 {
 

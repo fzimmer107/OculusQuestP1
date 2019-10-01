@@ -25,12 +25,9 @@ public class NetworkedHoloLens : MonoBehaviourPun, IPunObservable
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-       /* if (stream.IsReading)
-        {
-            playerGlobal.position = (Vector3)stream.ReceiveNext();
-            playerGlobal.rotation = (Quaternion)stream.ReceiveNext();
-        } */
 
+
+        //read stream from remote hololens avatar
         if(stream.IsReading)
         {
             Vector3 playerGlobalPos = (Vector3)stream.ReceiveNext();
